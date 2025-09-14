@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Integração de Dados</title>
+</head>
+<body>
+  <h1>Lista de Dados</h1>
+  <ul id="data-list"></ul>
+
+  <script>
+    async function carregarDados() {
+      try {
+        const resposta = await fetch('/api/dados');
+        const dados = await resposta.json();
+        const lista = document.getElementById('data-list');
+        dados.forEach(item => {
+          const li = document.createElement('li');
+          li.textContent = JSON.stringify(item);
+          lista.appendChild(li);
+        });
+      } catch (erro) {
+        console.error('Erro ao carregar dados:', erro);
+      }
+    }
+
+    carregarDados();
+  </script>
+</body>
+</html>
