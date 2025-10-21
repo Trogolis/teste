@@ -8,6 +8,7 @@ export '../base_auth_user_provider.dart';
 class BusTrackerFirebaseUser extends BaseAuthUser {
   BusTrackerFirebaseUser(this.user);
   User? user;
+  @override
   bool get loggedIn => user != null;
 
   @override
@@ -23,13 +24,8 @@ class BusTrackerFirebaseUser extends BaseAuthUser {
   Future? delete() => user?.delete();
 
   @override
-  Future? updateEmail(String email) async {
-    try {
-      await user?.updateEmail(email);
-    } catch (_) {
-      await user?.verifyBeforeUpdateEmail(email);
-    }
-  }
+  Future? updateEmail(String email) async =>
+      user?.verifyBeforeUpdateEmail(email);
 
   @override
   Future? updatePassword(String newPassword) async {

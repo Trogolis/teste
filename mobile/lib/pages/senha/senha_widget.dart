@@ -208,7 +208,7 @@ class _SenhaWidgetState extends State<SenhaWidget> {
                                   context: context,
                                 );
 
-                                if (!mounted) {
+                                if (!context.mounted) {
                                   return;
                                 }
 
