@@ -1,7 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import '../auth/firebase_auth/auth_util.dart';
-
 import 'package:flutter/foundation.dart' show debugPrint;
 
 import 'schema/util/firestore_util.dart';
