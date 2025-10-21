@@ -51,9 +51,6 @@ abstract class FlutterFlowModel<W extends Widget> {
   // parameters of the widget, for example.
   W? _widget;
   W? get widget => _widget;
-  void set widget(W? newWidget) {
-    _widget = newWidget;
-  }
 
   // The context associated with this model.
   BuildContext? _context;
@@ -129,7 +126,11 @@ class FlutterFlowDynamicModels<T extends FlutterFlowModel> {
     return model != null ? getValue(model) : null;
   }
 
-  void dispose() => _childrenModels.values.forEach((model) => model.dispose());
+  void dispose() {
+    for (final model in _childrenModels.values) {
+      model.dispose();
+    }
+  }
 
   void _updateActiveKeys(String uniqueKey) {
     final shouldResetActiveKeys = _activeKeys == null;
@@ -142,12 +143,12 @@ class FlutterFlowDynamicModels<T extends FlutterFlowModel> {
       // this again next build.
       SchedulerBinding.instance.addPostFrameCallback((_) {
         _childrenIndexes.removeWhere((k, _) => !_activeKeys!.contains(k));
-        _childrenModels.keys
+        final keysToRemove = _childrenModels.keys
             .toSet()
-            .difference(_activeKeys!)
-            // Remove and dispose of unused models since they are  not being used
-            // elsewhere and would not otherwise be disposed.
-            .forEach((k) => _childrenModels.remove(k)?.maybeDispose());
+            .difference(_activeKeys!);
+        for (final key in keysToRemove) {
+          _childrenModels.remove(key)?.maybeDispose();
+        }
         _activeKeys = null;
       });
     }
@@ -156,13 +157,13 @@ class FlutterFlowDynamicModels<T extends FlutterFlowModel> {
 
 T? _getDefaultValue<T>() {
   switch (T) {
-    case int:
+    case int _:
       return 0 as T;
-    case double:
+    case double _:
       return 0.0 as T;
-    case String:
+    case String _:
       return '' as T;
-    case bool:
+    case bool _:
       return false as T;
     default:
       return null as T;

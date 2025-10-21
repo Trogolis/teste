@@ -1,17 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
-import '/backend/backend.dart';
 
 import '/auth/base_auth_user_provider.dart';
 
 import '/main.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'serialization_util.dart';
 
 import '/index.dart';
 
@@ -81,57 +77,59 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       refreshListenable: appStateNotifier,
       navigatorKey: appNavigatorKey,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? NavBarPage() : LoginWidget(),
+          appStateNotifier.loggedIn ? NavBarPage() : const LoginWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) =>
-              appStateNotifier.loggedIn ? NavBarPage() : LoginWidget(),
+              appStateNotifier.loggedIn ? NavBarPage() : const LoginWidget(),
         ),
         FFRoute(
           name: LoginWidget.routeName,
           path: LoginWidget.routePath,
-          builder: (context, params) => LoginWidget(),
+          builder: (context, params) => const LoginWidget(),
         ),
         FFRoute(
           name: CadastroWidget.routeName,
           path: CadastroWidget.routePath,
-          builder: (context, params) => CadastroWidget(),
+          builder: (context, params) => const CadastroWidget(),
         ),
         FFRoute(
           name: MainWidget.routeName,
           path: MainWidget.routePath,
-          builder: (context, params) =>
-              params.isEmpty ? NavBarPage(initialPage: 'Main') : MainWidget(),
+          builder: (context, params) => params.isEmpty
+              ? NavBarPage(initialPage: 'Main')
+              : const MainWidget(),
         ),
         FFRoute(
           name: RelatarProblemaWidget.routeName,
           path: RelatarProblemaWidget.routePath,
           builder: (context, params) => params.isEmpty
               ? NavBarPage(initialPage: 'RelatarProblema')
-              : RelatarProblemaWidget(),
+              : const RelatarProblemaWidget(),
         ),
         FFRoute(
           name: ChatWidget.routeName,
           path: ChatWidget.routePath,
-          builder: (context, params) =>
-              params.isEmpty ? NavBarPage(initialPage: 'Chat') : ChatWidget(),
+          builder: (context, params) => params.isEmpty
+              ? NavBarPage(initialPage: 'Chat')
+              : const ChatWidget(),
         ),
         FFRoute(
           name: SenhaWidget.routeName,
           path: SenhaWidget.routePath,
-          builder: (context, params) => SenhaWidget(),
+          builder: (context, params) => const SenhaWidget(),
         ),
         FFRoute(
           name: UsuarioWidget.routeName,
           path: UsuarioWidget.routePath,
-          builder: (context, params) => UsuarioWidget(),
+          builder: (context, params) => const UsuarioWidget(),
         ),
         FFRoute(
           name: UsuarioCopyWidget.routeName,
           path: UsuarioCopyWidget.routePath,
-          builder: (context, params) => UsuarioCopyWidget(),
+          builder: (context, params) => const UsuarioCopyWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -369,7 +367,7 @@ class TransitionInfo {
   final Duration duration;
   final Alignment? alignment;
 
-  static TransitionInfo appDefault() => TransitionInfo(hasTransition: false);
+  static TransitionInfo appDefault() => const TransitionInfo(hasTransition: false);
 }
 
 class RootPageContext {
