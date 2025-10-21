@@ -350,6 +350,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                                   _model.emailTextController.text,
                                   _model.senhaTextController.text,
                                 );
+                                if (!mounted) {
+                                  return;
+                                }
                                 if (user == null) {
                                   return;
                                 }
