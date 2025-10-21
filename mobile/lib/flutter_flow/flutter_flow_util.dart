@@ -162,10 +162,10 @@ T? castToType<T>(dynamic value) {
     return null;
   }
   switch (T) {
-    case double:
+    case double _:
       // Doubles may be stored as ints in some cases.
       return value.toDouble() as T;
-    case int:
+    case int _:
       // Likewise, ints may be stored as doubles. If this is the case
       // (i.e. no decimal value), return the value as an int.
       if (value is num && value.toInt() == value) {
@@ -286,11 +286,11 @@ void showSnackbar(
         children: [
           if (loading)
             Padding(
-              padding: EdgeInsetsDirectional.only(end: 10.0),
-              child: Container(
+              padding: const EdgeInsetsDirectional.only(end: 10.0),
+              child: const SizedBox(
                 height: 20,
                 width: 20,
-                child: const CircularProgressIndicator(
+                child: CircularProgressIndicator(
                   color: Colors.white,
                 ),
               ),
