@@ -350,7 +350,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                   _model.emailTextController.text,
                                   _model.senhaTextController.text,
                                 );
-                                if (!mounted) {
+                                if (!context.mounted) {
                                   return;
                                 }
                                 if (user == null) {
@@ -358,7 +358,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                 }
 
                                 context.goNamedAuth(
-                                    MainWidget.routeName, context.mounted);
+                                    MainWidget.routeName, mounted);
                               },
                               text: 'Login',
                               options: FFButtonOptions(

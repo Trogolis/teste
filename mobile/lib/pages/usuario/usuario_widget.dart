@@ -4,7 +4,6 @@ import '/components/termo/termo_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -492,10 +491,13 @@ class _UsuarioWidgetState extends State<UsuarioWidget> {
                         onTap: () async {
                           GoRouter.of(context).prepareAuthEvent();
                           await authManager.signOut();
+                          if (!context.mounted) {
+                            return;
+                          }
                           GoRouter.of(context).clearRedirectLocation();
 
                           context.goNamedAuth(
-                              LoginWidget.routeName, context.mounted);
+                              LoginWidget.routeName, mounted);
                         },
                         child: Container(
                           width: double.infinity,
