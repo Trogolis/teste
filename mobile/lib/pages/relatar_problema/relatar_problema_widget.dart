@@ -124,7 +124,7 @@ class _RelatarProblemaWidgetState extends State<RelatarProblemaWidget> {
                                       .fontStyle,
                                 ),
                           ),
-                          Container(
+                          SizedBox(
                             width: double.infinity,
                             child: TextFormField(
                               controller: _model.textController1,
@@ -250,7 +250,7 @@ class _RelatarProblemaWidgetState extends State<RelatarProblemaWidget> {
                                       .fontStyle,
                                 ),
                           ),
-                          Container(
+                          SizedBox(
                             width: double.infinity,
                             child: TextFormField(
                               controller: _model.textController2,

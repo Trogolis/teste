@@ -208,6 +208,10 @@ class _SenhaWidgetState extends State<SenhaWidget> {
                                   context: context,
                                 );
 
+                                if (!mounted) {
+                                  return;
+                                }
+
                                 context.pushNamed(LoginWidget.routeName);
                               },
                               text: 'Alterar Senha',

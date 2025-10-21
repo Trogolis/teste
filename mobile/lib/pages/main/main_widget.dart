@@ -60,7 +60,7 @@ class _MainWidgetState extends State<MainWidget> {
               size: 30.0,
             ),
             onPressed: () {
-              print('iconMenu pressed ...');
+              debugPrint('iconMenu pressed ...');
             },
           ),
           title: Text(
