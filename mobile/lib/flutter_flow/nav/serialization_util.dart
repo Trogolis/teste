@@ -1,11 +1,10 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:flutter/material.dart';
-import 'package:from_css_color/from_css_color.dart';
 
 import '/backend/backend.dart';
 
-import '../../flutter_flow/lat_lng.dart';
 import '../../flutter_flow/place.dart';
 import '../../flutter_flow/uploaded_file.dart';
 
@@ -55,8 +54,7 @@ String? serializeParam(
     if (isList) {
       final serializedValues = (param as Iterable)
           .map((p) => serializeParam(p, paramType, isList: false))
-          .where((p) => p != null)
-          .map((p) => p!)
+          .whereType<String>()
           .toList();
       return json.encode(serializedValues);
     }
@@ -64,38 +62,48 @@ String? serializeParam(
     switch (paramType) {
       case ParamType.int:
         data = param.toString();
+        break;
       case ParamType.double:
         data = param.toString();
-      case ParamType.String:
+        break;
+      case ParamType.string:
         data = param;
+        break;
       case ParamType.bool:
         data = param ? 'true' : 'false';
-      case ParamType.DateTime:
+        break;
+      case ParamType.dateTime:
         data = (param as DateTime).millisecondsSinceEpoch.toString();
-      case ParamType.DateTimeRange:
+        break;
+      case ParamType.dateTimeRange:
         data = dateTimeRangeToString(param as DateTimeRange);
-      case ParamType.LatLng:
+        break;
+      case ParamType.latLng:
         data = (param as LatLng).serialize();
-      case ParamType.Color:
+        break;
+      case ParamType.color:
         data = (param as Color).toCssString();
-      case ParamType.FFPlace:
+        break;
+      case ParamType.ffPlace:
         data = placeToString(param as FFPlace);
-      case ParamType.FFUploadedFile:
+        break;
+      case ParamType.ffUploadedFile:
         data = uploadedFileToString(param as FFUploadedFile);
-      case ParamType.JSON:
+        break;
+      case ParamType.json:
         data = json.encode(param);
-      case ParamType.DocumentReference:
+        break;
+      case ParamType.documentReference:
         data = _serializeDocumentReference(param as DocumentReference);
-      case ParamType.Document:
+        break;
+      case ParamType.document:
         final reference = (param as FirestoreRecord).reference;
         data = _serializeDocumentReference(reference);
-
-      default:
-        data = null;
+        break;
     }
     return data;
   } catch (e) {
-    print('Error serializing parameter: $e');
+    debugPrint('Error serializing parameter: $e');
     return null;
   }
 }
@@ -168,18 +176,18 @@ DocumentReference _deserializeDocumentReference(
 enum ParamType {
   int,
   double,
-  String,
+  string,
   bool,
-  DateTime,
-  DateTimeRange,
-  LatLng,
-  Color,
-  FFPlace,
-  FFUploadedFile,
-  JSON,
+  dateTime,
+  dateTimeRange,
+  latLng,
+  color,
+  ffPlace,
+  ffUploadedFile,
+  json,
 
-  Document,
-  DocumentReference,
+  document,
+  documentReference,
 }
 
 dynamic deserializeParam<T>(
@@ -198,8 +206,7 @@ dynamic deserializeParam<T>(
         return null;
       }
       return paramValues
-          .where((p) => p is String)
-          .map((p) => p as String)
+          .whereType<String>()
           .map((p) => deserializeParam<T>(p, paramType, false,
               collectionNamePath: collectionNamePath))
           .where((p) => p != null)
@@ -211,35 +218,34 @@ dynamic deserializeParam<T>(
         return int.tryParse(param);
       case ParamType.double:
         return double.tryParse(param);
-      case ParamType.String:
+      case ParamType.string:
         return param;
       case ParamType.bool:
         return param == 'true';
-      case ParamType.DateTime:
+      case ParamType.dateTime:
         final milliseconds = int.tryParse(param);
         return milliseconds != null
             ? DateTime.fromMillisecondsSinceEpoch(milliseconds)
             : null;
-      case ParamType.DateTimeRange:
+      case ParamType.dateTimeRange:
         return dateTimeRangeFromString(param);
-      case ParamType.LatLng:
+      case ParamType.latLng:
         return latLngFromString(param);
-      case ParamType.Color:
+      case ParamType.color:
         return fromCssColor(param);
-      case ParamType.FFPlace:
+      case ParamType.ffPlace:
         return placeFromString(param);
-      case ParamType.FFUploadedFile:
+      case ParamType.ffUploadedFile:
         return uploadedFileFromString(param);
-      case ParamType.JSON:
+      case ParamType.json:
         return json.decode(param);
-      case ParamType.DocumentReference:
+      case ParamType.document:
+      case ParamType.documentReference:
         return _deserializeDocumentReference(param, collectionNamePath ?? []);
-
-      default:
-        return null;
     }
+    return null;
   } catch (e) {
-    print('Error deserializing parameter: $e');
+    debugPrint('Error deserializing parameter: $e');
     return null;
   }
 }
@@ -261,7 +267,7 @@ Future<List<T>> Function(String) getDocList<T>(
     List<String> docIds = [];
     try {
       final ids = json.decode(idsList) as Iterable;
-      docIds = ids.where((d) => d is String).map((d) => d as String).toList();
+      docIds = ids.whereType<String>().toList();
     } catch (_) {}
     return Future.wait(
       docIds.map(
