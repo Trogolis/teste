@@ -242,8 +242,6 @@ dynamic deserializeParam<T>(
       case ParamType.documentReference:
         return _deserializeDocumentReference(param, collectionNamePath ?? []);
     }
-    // Exhaustive switch ensures this line is unreachable, but keep a fallback
-    // in case new enum values are added in the future.
     throw StateError('Unsupported ParamType: $paramType');
   } catch (e) {
     debugPrint('Error deserializing parameter: $e');
