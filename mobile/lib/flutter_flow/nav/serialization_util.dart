@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:flutter/material.dart';
 
 import '/backend/backend.dart';
@@ -243,7 +242,9 @@ dynamic deserializeParam<T>(
       case ParamType.documentReference:
         return _deserializeDocumentReference(param, collectionNamePath ?? []);
     }
-    return null;
+    // Exhaustive switch ensures this line is unreachable, but keep a fallback
+    // in case new enum values are added in the future.
+    throw StateError('Unsupported ParamType: $paramType');
   } catch (e) {
     debugPrint('Error deserializing parameter: $e');
     return null;

@@ -156,18 +156,19 @@ class FlutterFlowDynamicModels<T extends FlutterFlowModel> {
 }
 
 T? _getDefaultValue<T>() {
-  switch (T) {
-    case int _:
-      return 0 as T;
-    case double _:
-      return 0.0 as T;
-    case String _:
-      return '' as T;
-    case bool _:
-      return false as T;
-    default:
-      return null as T;
+  if (T == int) {
+    return 0 as T;
   }
+  if (T == double) {
+    return 0.0 as T;
+  }
+  if (T == String) {
+    return '' as T;
+  }
+  if (T == bool) {
+    return false as T;
+  }
+  return null;
 }
 
 extension TextValidationExtensions on String? Function(BuildContext, String?)? {

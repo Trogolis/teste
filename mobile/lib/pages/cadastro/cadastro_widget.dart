@@ -531,15 +531,11 @@ class _CadastroWidgetState extends State<CadastroWidget> {
                                       safeSetState(() =>
                                           _model.checkboxValue = newValue!);
                                     },
-                                    side: (FlutterFlowTheme.of(context)
-                                                .alternate !=
-                                            null)
-                                        ? BorderSide(
-                                            width: 2,
-                                            color: FlutterFlowTheme.of(context)
-                                                .alternate!,
-                                          )
-                                        : null,
+                                    side: BorderSide(
+                                      width: 2,
+                                      color: FlutterFlowTheme.of(context)
+                                          .alternate,
+                                    ),
                                     activeColor:
                                         FlutterFlowTheme.of(context).secondary,
                                     checkColor:
@@ -670,6 +666,9 @@ class _CadastroWidgetState extends State<CadastroWidget> {
                                         uid: currentUserUid,
                                       ));
 
+                                  if (!context.mounted) {
+                                    return;
+                                  }
                                   context.pushNamedAuth(
                                       LoginWidget.routeName, context.mounted);
                                 }

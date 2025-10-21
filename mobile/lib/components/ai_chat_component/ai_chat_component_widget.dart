@@ -2,7 +2,6 @@ import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -69,10 +68,9 @@ class _AiChatComponentWidgetState extends State<AiChatComponentWidget> {
                       phone: false,
                       tablet: false,
                     ))
-                      Container(
+                      const SizedBox(
                         width: 100.0,
                         height: 24.0,
-                        decoration: BoxDecoration(),
                       ),
                     Expanded(
                       child: Padding(
