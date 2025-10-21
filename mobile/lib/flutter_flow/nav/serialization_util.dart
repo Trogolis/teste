@@ -241,10 +241,7 @@ dynamic deserializeParam<T>(
       case ParamType.document:
       case ParamType.documentReference:
         return _deserializeDocumentReference(param, collectionNamePath ?? []);
-      default:
-        throw StateError('Unsupported ParamType: $paramType');
-    }
-    throw StateError('Unsupported ParamType: $paramType');
+      }
   } catch (e) {
     debugPrint('Error deserializing parameter: $e');
     return null;
