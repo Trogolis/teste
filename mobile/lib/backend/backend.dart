@@ -95,8 +95,7 @@ Future<int> queryCollectionCount(
   Query Function(Query)? queryBuilder,
   int limit = -1,
 }) async {
-  final builder = queryBuilder ?? (q) => q;
-  var query = builder(collection);
+  var query = (queryBuilder ?? (q) => q)(collection);
   if (limit > 0) {
     query = query.limit(limit);
   }
@@ -117,8 +116,7 @@ Stream<List<T>> queryCollection<T>(
   int limit = -1,
   bool singleRecord = false,
 }) {
-  final builder = queryBuilder ?? (q) => q;
-  var query = builder(collection);
+  var query = (queryBuilder ?? (q) => q)(collection);
   if (limit > 0 || singleRecord) {
     query = query.limit(singleRecord ? 1 : limit);
   }
@@ -143,8 +141,7 @@ Future<List<T>> queryCollectionOnce<T>(
   int limit = -1,
   bool singleRecord = false,
 }) {
-  final builder = queryBuilder ?? (q) => q;
-  var query = builder(collection);
+  var query = (queryBuilder ?? (q) => q)(collection);
   if (limit > 0 || singleRecord) {
     query = query.limit(singleRecord ? 1 : limit);
   }
@@ -200,8 +197,7 @@ Future<FFFirestorePage<T>> queryCollectionPage<T>(
   required int pageSize,
   required bool isStream,
 }) async {
-  final builder = queryBuilder ?? (q) => q;
-  var query = builder(collection).limit(pageSize);
+  var query = (queryBuilder ?? (q) => q)(collection).limit(pageSize);
   if (nextPageMarker != null) {
     query = query.startAfterDocument(nextPageMarker);
   }
