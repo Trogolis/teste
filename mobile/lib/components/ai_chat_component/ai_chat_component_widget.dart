@@ -216,7 +216,7 @@ class _AiChatComponentWidgetState extends State<AiChatComponentWidget> {
                 ),
                 child: Stack(
                   children: [
-                    Container(
+                    SizedBox(
                       width: double.infinity,
                       child: TextFormField(
                         controller: _model.textController,
@@ -368,10 +368,9 @@ class _AiChatComponentWidgetState extends State<AiChatComponentWidget> {
               phone: false,
               tablet: false,
             ))
-              Container(
+              SizedBox(
                 width: 100.0,
                 height: 60.0,
-                decoration: BoxDecoration(),
               ),
           ],
         ),
